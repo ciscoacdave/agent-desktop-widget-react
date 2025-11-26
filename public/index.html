@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Desktop Web Component (React) - Test Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+        }
+        
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .top-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-top: 0;
+        }
+        
+        .controls {
+            background: #f8f9fa;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .controls h2 {
+            margin-top: 0;
+            font-size: 18px;
+            color: #495057;
+        }
+        
+        button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+        }
+        
+        .widget-container {
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .info-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .info-section h3 {
+            margin-top: 0;
+            color: #004085;
+        }
+        
+        .info-content {
+            background: #e7f3ff;
+            padding: 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+        }
+
+        ul {
+            margin: 8px 0;
+        }
+
+        li {
+            margin: 4px 0;
+        }
+
+        .tech-badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="top-section">
+            <h1>🧪 Agent Desktop Web Component (React) - Test Page</h1>
+            <div>
+                <span class="tech-badge">React 18</span>
+                <span class="tech-badge">Web Components</span>
+                <span class="tech-badge">Shadow DOM</span>
+                <span class="tech-badge">Webpack</span>
+            </div>
+        </div>
+
+        <div class="top-section">
+            <div class="controls">
+                <h2>Simulate Agent Desktop Events</h2>
+                <button class="btn-primary" onclick="simulateAgentState()">
+                    📊 Send Agent State
+                </button>
+                <button class="btn-success" onclick="simulateInteraction()">
+                    📞 Send Interaction Data
+                </button>
+                <button class="btn-primary" onclick="simulateReady()">
+                    ✅ Send Ready Event
+                </button>
+            </div>
+        </div>
+
+        <div class="widget-container">
+            <agent-desktop-widget></agent-desktop-widget>
+        </div>
+
+        <div class="info-section">
+            <h3>📝 How to Use in Webex Contact Center</h3>
+            <div class="info-content">
+                <p><strong>1. Build the Component:</strong></p>
+                <ul>
+                    <li>Run <code>npm install</code> to install dependencies</li>
+                    <li>Run <code>npm run build</code> to create production bundle</li>
+                    <li>The compiled file will be in <code>dist/agent-desktop-component.js</code></li>
+                </ul>
+                
+                <p><strong>2. Host the JavaScript file:</strong></p>
+                <ul>
+                    <li>Upload the built file to a web server (must be HTTPS)</li>
+                    <li>Ensure the file is accessible via a public URL</li>
+                </ul>
+                
+                <p><strong>3. Configure in Agent Desktop Layout:</strong></p>
+                <ul>
+                    <li>Go to Webex Contact Center Administration Portal</li>
+                    <li>Navigate to Desktop Layout configuration</li>
+                    <li>Add a new Custom Component</li>
+                    <li>Select "Web Component" as the component type</li>
+                    <li>Enter the component tag: <code>&lt;agent-desktop-widget&gt;&lt;/agent-desktop-widget&gt;</code></li>
+                    <li>Enter the script URL: <code>https://your-server.com/agent-desktop-component.js</code></li>
+                </ul>
+
+                <p><strong>4. Development Mode:</strong></p>
+                <ul>
+                    <li>Run <code>npm run dev</code> for development with auto-reload</li>
+                    <li>Run <code>npm run serve</code> to start development server on port 3000</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Test simulation scripts -->
+    <script>
+        // Listen for messages from the component
+        window.addEventListener('message', (event) => {
+            console.log('Received from widget:', event.data);
+        });
+
+        function simulateAgentState() {
+            window.postMessage({
+                type: 'agentContact:stateChange',
+                data: {
+                    state: 'Available',
+                    team: 'Customer Support',
+                    agentId: 'agent-12345',
+                    timestamp: new Date().toISOString()
+                }
+            }, '*');
+        }
+
+        function simulateInteraction() {
+            window.postMessage({
+                type: 'agentContact:interaction',
+                data: {
+                    id: 'int-' + Math.random().toString(36).substr(2, 9),
+                    mediaType: 'telephony',
+                    ani: '+1-555-0123',
+                    direction: 'inbound',
+                    timestamp: new Date().toISOString()
+                }
+            }, '*');
+        }
+
+        function simulateReady() {
+            window.postMessage({
+                type: 'agentContact:ready',
+                data: {
+                    version: '1.0.0',
+                    timestamp: new Date().toISOString()
+                }
+            }, '*');
+        }
+
+        // Simulate ready event on load
+        setTimeout(() => {
+            console.log('Simulating Agent Desktop ready event...');
+            simulateReady();
+        }, 1000);
+    </script>
+</body>
+</html>
