@@ -24,32 +24,6 @@ const AlbertsonsForUWidget = () => {
       communicationPreference: 'Email',
       weeklyAd: true,
       freshPass: false,
-      recentPurchases: [
-        {
-          id: 'ORD-12847',
-          date: '2024-12-05',
-          total: 87.34,
-          items: 'O Organics Milk, Fresh Produce, Signature Select Bread',
-          pointsEarned: 87,
-          status: 'Completed'
-        },
-        {
-          id: 'ORD-12698',
-          date: '2024-11-29',
-          total: 124.56,
-          items: 'Holiday Turkey, Primo Taglio Deli Meats, Vegetables',
-          pointsEarned: 124,
-          status: 'Completed'
-        },
-        {
-          id: 'ORD-12543',
-          date: '2024-11-22',
-          total: 65.89,
-          items: 'Open Nature Chicken, Waterfront Bistro Salmon',
-          pointsEarned: 65,
-          status: 'Completed'
-        }
-      ],
       clippedCoupons: [
         { id: 'CPN-001', title: '$1.50 Off O Organics', expires: '2024-12-20' },
         { id: 'CPN-002', title: '$2 Off Signature Select Pizza', expires: '2024-12-18' },
@@ -72,32 +46,6 @@ const AlbertsonsForUWidget = () => {
       communicationPreference: 'SMS',
       weeklyAd: true,
       freshPass: true,
-      recentPurchases: [
-        {
-          id: 'ORD-15432',
-          date: '2024-12-08',
-          total: 156.78,
-          items: 'Primo Taglio Roast Beef, Craft Beer Variety, Lucerne Cheese',
-          pointsEarned: 156,
-          status: 'Delivered'
-        },
-        {
-          id: 'ORD-15201',
-          date: '2024-12-01',
-          total: 203.45,
-          items: 'Waterfront Bistro Shrimp, Wine Selection, Signature Steaks',
-          pointsEarned: 203,
-          status: 'Delivered'
-        },
-        {
-          id: 'ORD-14987',
-          date: '2024-11-24',
-          total: 189.23,
-          items: 'Holiday Ham, Bakery Desserts, O Organics Vegetables',
-          pointsEarned: 189,
-          status: 'Completed'
-        }
-      ],
       clippedCoupons: [
         { id: 'CPN-101', title: '$3 Off Waterfront Bistro Seafood', expires: '2024-12-22' },
         { id: 'CPN-102', title: '$5 Off Wine Purchase $25+', expires: '2024-12-31' },
@@ -121,32 +69,6 @@ const AlbertsonsForUWidget = () => {
       communicationPreference: 'Email',
       weeklyAd: false,
       freshPass: false,
-      recentPurchases: [
-        {
-          id: 'ORD-09876',
-          date: '2024-12-06',
-          total: 98.45,
-          items: 'O Organics Baby Food, Open Nature Snacks, Lucerne Yogurt',
-          pointsEarned: 98,
-          status: 'Completed'
-        },
-        {
-          id: 'ORD-09654',
-          date: '2024-11-28',
-          total: 76.32,
-          items: 'Vitamins, O Organics Produce, Signature Granola',
-          pointsEarned: 76,
-          status: 'Completed'
-        },
-        {
-          id: 'ORD-09432',
-          date: '2024-11-20',
-          total: 54.78,
-          items: 'Baby Diapers, Wipes, O Organics Milk',
-          pointsEarned: 54,
-          status: 'Completed'
-        }
-      ],
       clippedCoupons: [
         { id: 'CPN-201', title: '$1 Off O Organics Baby', expires: '2024-12-25' },
         { id: 'CPN-202', title: '$2 Off Vitamins', expires: '2024-12-30' }
@@ -168,32 +90,6 @@ const AlbertsonsForUWidget = () => {
       communicationPreference: 'Email',
       weeklyAd: true,
       freshPass: true,
-      recentPurchases: [
-        {
-          id: 'ORD-19234',
-          date: '2024-12-09',
-          total: 234.67,
-          items: 'ReadyMeals Family Pack, International Foods, Premium Deli',
-          pointsEarned: 234,
-          status: 'Delivered'
-        },
-        {
-          id: 'ORD-18967',
-          date: '2024-12-02',
-          total: 178.90,
-          items: 'Primo Taglio Party Tray, Craft Beer, Specialty Cheeses',
-          pointsEarned: 178,
-          status: 'Delivered'
-        },
-        {
-          id: 'ORD-18745',
-          date: '2024-11-25',
-          total: 312.45,
-          items: 'Holiday Party Catering, Wine, Bakery Desserts',
-          pointsEarned: 312,
-          status: 'Completed'
-        }
-      ],
       clippedCoupons: [
         { id: 'CPN-301', title: '$5 Off ReadyMeals', expires: '2024-12-20' },
         { id: 'CPN-302', title: '$10 Off Catering Order $50+', expires: '2024-12-31' },
@@ -426,13 +322,6 @@ const AlbertsonsForUWidget = () => {
     }, 1000);
   };
 
-  // Handle viewing order
-  const handleViewOrder = (orderId) => {
-    setStatus(`Opening order ${orderId}...`);
-    sendToDesktop('foru:viewOrder', { orderId });
-    setTimeout(() => setStatus('Ready'), 1500);
-  };
-
   // Calculate dollar value of points
   const calculatePointsValue = () => {
     return (customerData.points / 100).toFixed(2);
@@ -587,7 +476,7 @@ const AlbertsonsForUWidget = () => {
           <div style={styles.statIcon}>🛒</div>
           <div style={styles.statValue}>{new Date(customerData.lastPurchase).toLocaleDateString()}</div>
           <div style={styles.statLabel}>Last Purchase</div>
-         <div style={styles.statSubtext}>Order #{customerData.recentPurchases[0]?.id}</div>
+          <div style={styles.statSubtext}>{customerData.purchaseCount} total orders</div>
         </div>
       </div>
 
@@ -647,34 +536,6 @@ const AlbertsonsForUWidget = () => {
               >
                 {customerData.points >= reward.points ? 'Redeem' : 'Locked'}
               </button>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Recent Purchases */}
-      <div style={styles.section}>
-        <h3 style={styles.sectionTitle}>📦 Recent Purchases</h3>
-        <div style={styles.purchasesList}>
-          {customerData.recentPurchases.map(purchase => (
-            <div key={purchase.id} style={styles.purchaseCard}>
-              <div style={styles.purchaseHeader}>
-                <span style={styles.purchaseId}>{purchase.id}</span>
-                <span style={styles.purchaseDate}>{new Date(purchase.date).toLocaleDateString()}</span>
-              </div>
-              <div style={styles.purchaseItems}>{purchase.items}</div>
-              <div style={styles.purchaseFooter}>
-                <div>
-                  <div style={styles.purchaseTotal}>${purchase.total}</div>
-                  <div style={styles.purchasePoints}>+{purchase.pointsEarned} points earned</div>
-                </div>
-                <button 
-                  style={styles.viewButton}
-                  onClick={() => handleViewOrder(purchase.id)}
-                >
-                  View Details →
-                </button>
-              </div>
             </div>
           ))}
         </div>
@@ -1058,61 +919,6 @@ const styles = {
   redeemButtonDisabled: {
     background: '#d1d5db',
     cursor: 'not-allowed'
-  },
-  purchasesList: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '12px'
-  },
-  purchaseCard: {
-    padding: '16px',
-    background: '#f9fafb',
-    borderRadius: '8px',
-    border: '1px solid #e5e7eb'
-  },
-  purchaseHeader: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: '8px'
-  },
-  purchaseId: {
-    fontSize: '14px',
-    fontWeight: 700,
-    color: '#1f2937'
-  },
-  purchaseDate: {
-    fontSize: '13px',
-    color: '#6b7280'
-  },
-  purchaseItems: {
-    fontSize: '14px',
-    color: '#4b5563',
-    marginBottom: '12px'
-  },
-  purchaseFooter: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  },
-  purchaseTotal: {
-    fontSize: '18px',
-    fontWeight: 700,
-    color: albertsonsBlue
-  },
-  purchasePoints: {
-    fontSize: '12px',
-    color: albertsonsGreen,
-    fontWeight: 600
-  },
-  viewButton: {
-    padding: '8px 16px',
-    background: 'transparent',
-    border: `2px solid ${albertsonsBlue}`,
-    color: albertsonsBlue,
-    fontSize: '13px',
-    fontWeight: 700,
-    cursor: 'pointer',
-    borderRadius: '6px'
   },
   preferencesGrid: {
     display: 'flex',
