@@ -587,7 +587,7 @@ const AlbertsonsForUWidget = () => {
           <div style={styles.statIcon}>🛒</div>
           <div style={styles.statValue}>{new Date(customerData.lastPurchase).toLocaleDateString()}</div>
           <div style={styles.statLabel}>Last Purchase</div>
-          <div style={styles.statSubtext}>Order #{recentPurchases[0]?.id}</div>
+         <div style={styles.statSubtext}>Order #{customerData.recentPurchases[0]?.id}</div>
         </div>
       </div>
 
