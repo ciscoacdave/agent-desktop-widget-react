@@ -1150,4 +1150,5 @@ const styles = {
   }
 };
 
-export default AgentDesktopWidget;
+// Export as default with the standard name for compatibility
+export default AlbertsonsForUWidget;

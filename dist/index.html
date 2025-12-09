@@ -1,168 +1,390 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Agent Desktop Web Component (React) - Test Page</title><style>body {
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Albertsons for U™ - Agent Desktop Widget Test</title><style>body {
             margin: 0;
             padding: 20px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             background: #f0f2f5;
         }
         
         .test-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
-        .top-section {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        .top-bar {
+            background: linear-gradient(135deg, #003DA5 0%, #0052cc 100%);
+            color: white;
+            padding: 28px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,61,165,0.3);
             margin-bottom: 20px;
         }
         
         h1 {
-            color: #333;
-            margin-top: 0;
+            color: white;
+            margin: 0 0 8px 0;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: rgba(255,255,255,0.9);
+            margin: 0 0 16px 0;
+            font-size: 18px;
+        }
+
+        .brand-info {
+            font-size: 14px;
+            opacity: 0.85;
         }
         
         .controls {
-            background: #f8f9fa;
-            padding: 16px;
-            border-radius: 8px;
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
             margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         
         .controls h2 {
             margin-top: 0;
-            font-size: 18px;
-            color: #495057;
+            font-size: 22px;
+            color: #003DA5;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .control-section {
+            margin-bottom: 28px;
+        }
+
+        .control-section h3 {
+            font-size: 16px;
+            color: #4b5563;
+            margin: 0 0 14px 0;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
         }
         
         button {
-            padding: 10px 20px;
-            margin-right: 10px;
-            margin-bottom: 10px;
+            padding: 14px 20px;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
+            font-size: 15px;
+            font-weight: 700;
             transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        button:active {
+            transform: translateY(0);
         }
         
         .btn-primary {
-            background: #007bff;
+            background: #003DA5;
             color: white;
         }
         
         .btn-primary:hover {
-            background: #0056b3;
+            background: #002d7a;
         }
-        
+
         .btn-success {
-            background: #28a745;
+            background: #00A651;
             color: white;
         }
-        
+
         .btn-success:hover {
-            background: #218838;
+            background: #008542;
+        }
+
+        .btn-warning {
+            background: #FF6A13;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #e55a0a;
+        }
+
+        .btn-info {
+            background: #0ea5e9;
+            color: white;
+        }
+
+        .btn-info:hover {
+            background: #0284c7;
+        }
+
+        .layout-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
         }
         
         .widget-container {
-            border: 2px solid #dee2e6;
-            border-radius: 8px;
+            background: white;
+            border-radius: 12px;
             overflow: hidden;
-            background: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .info-section {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        .info-section h3 {
-            margin-top: 0;
-            color: #004085;
+        .info-panel {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-        
-        .info-content {
-            background: #e7f3ff;
-            padding: 16px;
-            border-radius: 4px;
+
+        .info-panel h3 {
+            margin-top: 0;
+            color: #003DA5;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .scenario-card {
+            background: #f8f9fa;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 14px;
+            border-left: 4px solid #003DA5;
+        }
+
+        .scenario-card h4 {
+            margin: 0 0 8px 0;
+            color: #1f2937;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .scenario-card p {
+            margin: 0;
+            color: #6b7280;
             font-size: 14px;
             line-height: 1.6;
         }
-        
-        code {
-            background: #f8f9fa;
-            padding: 2px 6px;
-            border-radius: 3px;
+
+        .log-section {
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 18px;
+            border-radius: 10px;
+            margin-top: 24px;
             font-family: 'Courier New', monospace;
-            color: #e83e8c;
+            font-size: 13px;
+            max-height: 320px;
+            overflow-y: auto;
         }
 
-        ul {
-            margin: 8px 0;
+        .log-section h4 {
+            margin: 0 0 14px 0;
+            color: #f3f4f6;
+            font-weight: 700;
         }
 
-        li {
-            margin: 4px 0;
+        .log-entry {
+            padding: 6px 0;
+            border-bottom: 1px solid #374151;
+        }
+
+        .log-entry:last-child {
+            border-bottom: none;
+        }
+
+        .log-timestamp {
+            color: #9ca3af;
+            margin-right: 8px;
+        }
+
+        .log-type {
+            color: #60a5fa;
+            margin-right: 8px;
+            font-weight: bold;
         }
 
         .tech-badge {
             display: inline-block;
-            background: #667eea;
+            background: rgba(255,255,255,0.2);
             color: white;
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-size: 12px;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 13px;
             font-weight: 600;
             margin-right: 8px;
             margin-bottom: 8px;
-        }</style><script defer="defer" src="agent-desktop-component.js"></script></head><body><div class="test-container"><div class="top-section"><h1>🧪 Agent Desktop Web Component (React) - Test Page</h1><div><span class="tech-badge">React 18</span> <span class="tech-badge">Web Components</span> <span class="tech-badge">Shadow DOM</span> <span class="tech-badge">Webpack</span></div></div><div class="top-section"><div class="controls"><h2>Simulate Agent Desktop Events</h2><button class="btn-primary" onclick="simulateAgentState()">📊 Send Agent State</button> <button class="btn-success" onclick="simulateInteraction()">📞 Send Interaction Data</button> <button class="btn-primary" onclick="simulateReady()">✅ Send Ready Event</button></div></div><div class="widget-container"><agent-desktop-widget></agent-desktop-widget></div><div class="info-section"><h3>📝 How to Use in Webex Contact Center</h3><div class="info-content"><p><strong>1. Build the Component:</strong></p><ul><li>Run <code>npm install</code> to install dependencies</li><li>Run <code>npm run build</code> to create production bundle</li><li>The compiled file will be in <code>dist/agent-desktop-component.js</code></li></ul><p><strong>2. Host the JavaScript file:</strong></p><ul><li>Upload the built file to a web server (must be HTTPS)</li><li>Ensure the file is accessible via a public URL</li></ul><p><strong>3. Configure in Agent Desktop Layout:</strong></p><ul><li>Go to Webex Contact Center Administration Portal</li><li>Navigate to Desktop Layout configuration</li><li>Add a new Custom Component</li><li>Select "Web Component" as the component type</li><li>Enter the component tag: <code>&lt;agent-desktop-widget&gt;&lt;/agent-desktop-widget&gt;</code></li><li>Enter the script URL: <code>https://your-server.com/agent-desktop-component.js</code></li></ul><p><strong>4. Development Mode:</strong></p><ul><li>Run <code>npm run dev</code> for development with auto-reload</li><li>Run <code>npm run serve</code> to start development server on port 3000</li></ul></div></div></div><script>// Listen for messages from the component
-        window.addEventListener('message', (event) => {
-            console.log('Received from widget:', event.data);
-        });
-
-        function simulateAgentState() {
-            window.postMessage({
-                type: 'agentContact:stateChange',
-                data: {
-                    state: 'Available',
-                    team: 'Customer Support',
-                    agentId: 'agent-12345',
-                    timestamp: new Date().toISOString()
-                }
-            }, '*');
         }
 
-        function simulateInteraction() {
-            window.postMessage({
-                type: 'agentContact:interaction',
-                data: {
-                    id: 'int-' + Math.random().toString(36).substr(2, 9),
-                    mediaType: 'telephony',
-                    ani: '+1-555-0123',
-                    direction: 'inbound',
-                    timestamp: new Date().toISOString()
-                }
-            }, '*');
+        @media (max-width: 1200px) {
+            .layout-container {
+                grid-template-columns: 1fr;
+            }
+        }</style><script defer="defer" src="agent-desktop-component.js"></script></head><body><div class="test-container"><div class="top-bar"><h1>🛒 Albertsons for U™ - Agent Desktop Widget</h1><p class="subtitle">Grocery Rewards & Customer Loyalty Management</p><div class="brand-info"><span class="tech-badge">React 18</span> <span class="tech-badge">Albertsons Branded</span> <span class="tech-badge">for U™ Rewards</span> <span class="tech-badge">Real-time Points</span></div></div><div class="controls"><h2>🎮 Customer Service Scenarios</h2><div class="control-section"><h3>📞 Incoming Customer Calls</h3><div class="button-grid"><button class="btn-primary" onclick="simulateRegularMember()">Active for U™ Member</button> <button class="btn-primary" onclick="simulateFreshPassMember()">FreshPass® Subscriber</button> <button class="btn-primary" onclick="simulateNewMember()">New Member Signup</button> <button class="btn-warning" onclick="simulatePointsInquiry()">Points Balance Inquiry</button></div></div><div class="control-section"><h3>⚡ Agent Actions</h3><div class="button-grid"><button class="btn-success" onclick="simulateAgentAvailable()">Agent Available</button> <button class="btn-info" onclick="simulateAgentBusy()">Agent Busy</button> <button class="btn-success" onclick="simulateRewardRedemption()">Redeem Reward</button> <button class="btn-success" onclick="simulateBonusPoints()">Add Bonus Points</button></div></div><div class="control-section"><h3>🔄 System Events</h3><div class="button-grid"><button class="btn-info" onclick="simulateReady()">System Ready</button> <button class="btn-info" onclick="refreshCustomerData()">Refresh Data</button> <button class="btn-warning" onclick="clearLogs()">Clear Event Logs</button></div></div></div><div class="layout-container"><div class="widget-container"><agent-desktop-widget></agent-desktop-widget></div><div class="info-panel"><h3>📋 Customer Service Scenarios</h3><div class="scenario-card"><h4>🛒 Active for U™ Member</h4><p>Regular customer Maria Rodriguez with 4,850 points. Help her redeem rewards and check her purchase history.</p></div><div class="scenario-card"><h4>🚚 FreshPass® Subscriber</h4><p>Customer with unlimited free delivery. Review membership benefits and address any delivery questions.</p></div><div class="scenario-card"><h4>🆕 New Member</h4><p>First-time for U™ enrollment. Explain points program, welcome offer, and app benefits.</p></div><div class="scenario-card"><h4>💰 Points Inquiry</h4><p>Customer asking about points balance and available rewards. Show redemption options.</p></div><div class="scenario-card"><h4>🎁 Weekly Ad & Coupons</h4><p>Help customer find deals, clip digital coupons, and view current promotional offers.</p></div><div class="log-section"><h4>📡 System Event Log</h4><div id="event-log"></div></div></div></div></div><script src="agent-desktop-component.js"></script><script>const eventLog = document.getElementById('event-log');
+        
+        // Listen for messages from the component
+        window.addEventListener('message', (event) => {
+            logEvent('RECEIVED', event.data);
+        });
+
+        function logEvent(type, data) {
+            const timestamp = new Date().toLocaleTimeString();
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.innerHTML = `
+                <span class="log-timestamp">[${timestamp}]</span>
+                <span class="log-type">${type}:</span>
+                ${JSON.stringify(data, null, 2)}
+            `;
+            eventLog.insertBefore(entry, eventLog.firstChild);
+            
+            // Keep only last 20 entries
+            while (eventLog.children.length > 20) {
+                eventLog.removeChild(eventLog.lastChild);
+            }
+        }
+
+        function sendEvent(type, data) {
+            logEvent('SENT', { type, data });
+            window.postMessage({ type, data }, '*');
+        }
+
+        function simulateRegularMember() {
+            sendEvent('agentContact:interaction', {
+                id: 'int-' + Math.random().toString(36).substr(2, 9),
+                mediaType: 'telephony',
+                ani: '+15556789012',  // Maria Rodriguez
+                direction: 'inbound',
+                customerName: 'Maria Rodriguez',
+                customerId: 'ALB-89432',
+                memberType: 'for U',
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        function simulateFreshPassMember() {
+            sendEvent('agentContact:interaction', {
+                id: 'int-' + Math.random().toString(36).substr(2, 9),
+                mediaType: 'telephony',
+                ani: '+15552345678',  // James Thompson
+                direction: 'inbound',
+                customerName: 'James Thompson',
+                customerId: 'ALB-54821',
+                memberType: 'FreshPass',
+                hasFreshPass: true,
+                points: 12450,
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        function simulateNewMember() {
+            sendEvent('agentContact:interaction', {
+                id: 'int-' + Math.random().toString(36).substr(2, 9),
+                mediaType: 'telephony',
+                ani: '+15559876543',  // Sarah Chen
+                direction: 'inbound',
+                customerName: 'Sarah Chen',
+                customerId: 'ALB-12345',
+                isNewMember: false,
+                enrollingForU: false,
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        function simulatePointsInquiry() {
+            sendEvent('agentContact:interaction', {
+                id: 'int-' + Math.random().toString(36).substr(2, 9),
+                mediaType: 'telephony',
+                ani: '+15554567890',  // Robert Martinez
+                direction: 'inbound',
+                customerName: 'Robert Martinez',
+                customerId: 'ALB-67890',
+                inquiryType: 'points',
+                question: 'How many points do I have?',
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        function simulateAgentAvailable() {
+            sendEvent('agentContact:stateChange', {
+                state: 'Available',
+                team: 'Customer Service - Grocery',
+                agentId: 'agent-albertsons-001',
+                agentName: 'Sarah Martinez',
+                department: 'for U Support',
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        function simulateAgentBusy() {
+            sendEvent('agentContact:stateChange', {
+                state: 'Busy',
+                team: 'Customer Service - Grocery',
+                agentId: 'agent-albertsons-001',
+                agentName: 'Sarah Martinez',
+                department: 'for U Support',
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        function simulateRewardRedemption() {
+            sendEvent('foru:rewardRedeemed', {
+                customerId: 'ALB-89432',
+                reward: 'Free Lucerne Dairy Item',
+                pointsUsed: 300,
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        function simulateBonusPoints() {
+            sendEvent('foru:pointsAdded', {
+                customerId: 'ALB-89432',
+                pointsAdded: 100,
+                reason: 'Customer satisfaction - delayed delivery',
+                timestamp: new Date().toISOString()
+            });
         }
 
         function simulateReady() {
-            window.postMessage({
-                type: 'agentContact:ready',
-                data: {
-                    version: '1.0.0',
-                    timestamp: new Date().toISOString()
-                }
-            }, '*');
+            sendEvent('agentContact:ready', {
+                system: 'Albertsons for U Widget',
+                version: '2.0.0',
+                timestamp: new Date().toISOString()
+            });
         }
 
-        // Simulate ready event on load
+        function refreshCustomerData() {
+            sendEvent('widget:refreshData', {
+                customerId: 'ALB-89432',
+                requestType: 'full_profile',
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        function clearLogs() {
+            eventLog.innerHTML = '';
+            logEvent('SYSTEM', { message: 'Event logs cleared' });
+        }
+
+        // Auto-simulate ready event on load
         setTimeout(() => {
             console.log('Simulating Agent Desktop ready event...');
             simulateReady();
-        }, 1000);</script></body></html>
+        }, 1000);
+
+        // Auto-simulate incoming call after 2 seconds
+        setTimeout(() => {
+            console.log('Simulating incoming for U member call...');
+            simulateRegularMember();
+        }, 2500);</script></body></html>
